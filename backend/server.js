@@ -19,6 +19,10 @@ app.use(cors());
 // routes
 app.use(routes);
 
+app.get("/", (req, res) => {
+  res.send("Home Page");
+});
+
 // consider wrapping this in async function but this should overall be good
 mongoose
   .connect(process.env.MONGO_URI)

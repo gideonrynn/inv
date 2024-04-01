@@ -6,8 +6,6 @@ router.get('/routeOne', (req, res) => {
     db.Template.find()
       .then(template => res.json(template))
 
-      
-
 });
 
 
