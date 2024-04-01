@@ -52,7 +52,7 @@ jobs:
           FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
           MONGO_URI: ${{ secrets.MONGO_URI }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          CLOUDINARY_URL: ${{ CLOUDINARY_URL }}
+          CLOUDINARY_URL: ${{ secrets.CLOUDINARY_URL }}
 
       - name: Deploy to production
         uses: johnbeynon/render-deploy-action@v0.0.8
