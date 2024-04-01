@@ -52,6 +52,7 @@ jobs:
 
       - name: Install and Build
         run: |
+          cd backend
           pnpm install
           pnpm start
         env: 
