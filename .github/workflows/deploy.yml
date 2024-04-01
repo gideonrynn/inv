@@ -1,0 +1,61 @@
+name: Deploy Render Backend
+
+on:
+  workflow_dispatch:
+   inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'deploy'
+        type: choice
+        options:
+        - deploy
+        - update
+        - test
+
+jobs:
+
+  log-inputs:
+      name: Log Inputs
+      runs-on: ubuntu-latest
+      steps:
+        - run: |
+            echo "Log level: $LEVEL"
+            echo "Github event object: $GITHUBEV"
+          env:
+            LEVEL: ${{ github.event.inputs.logLevel }}
+            GITHUBEV: ${{ github.ref }}
+
+  deploy-render:
+  
+    name: Deploy
+    runs-on: ubuntu-latest
+    
+    strategy: 
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v4
+
+      - name: Use Node.JS ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with: 
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install and Build
+        run: |
+          pnpm install
+          pnpm start
+        env: 
+          FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          CLOUDINARY_URL: ${{ CLOUDINARY_URL }}
+
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
