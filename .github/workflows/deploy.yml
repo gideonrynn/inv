@@ -12,6 +12,15 @@ on:
         - deploy
         - update
         - test
+      branch:
+        description: 'Branch'
+        default: 'develop'
+        required: true
+        type: choice
+        options:
+          - develop
+          - main
+          - qa
 
 jobs:
 
@@ -38,6 +47,8 @@ jobs:
     steps:
       - name: Checkout 
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.environment }}
 
       - name: Install PNPM
         uses: pnpm/action-setup@v3
