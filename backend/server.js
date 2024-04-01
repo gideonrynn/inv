@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const routes = require("./routes");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,10 +15,9 @@ app.use(express.urlencoded({extended: false})); // handle data that comes in via
 app.use(bodyParser.json());
 app.use(cors());
 
-// routes draft
-app.get("/", (req, res) => {
-  res.send("Home Page");
-});
+
+// routes
+app.use(routes);
 
 // consider wrapping this in async function but this should overall be good
 mongoose

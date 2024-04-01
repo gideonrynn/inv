@@ -1,4 +1,4 @@
-# inv
+# inventaris
 Second draft of inv project
 
 
