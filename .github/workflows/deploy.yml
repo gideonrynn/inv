@@ -21,6 +21,7 @@ on:
           - develop
           - main
           - qa
+          - gha-deploy-to-render
 
 jobs:
 
