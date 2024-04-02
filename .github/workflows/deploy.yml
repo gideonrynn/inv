@@ -66,7 +66,6 @@ jobs:
         run: |
           cd backend
           pnpm install
-          pnpm start
         env: 
           FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
           MONGO_URI: ${{ secrets.MONGO_URI }}
